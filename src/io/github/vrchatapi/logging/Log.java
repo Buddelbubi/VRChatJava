@@ -6,8 +6,17 @@ import java.io.StringWriter;
 public class Log {
 	
 	private static LogLevel current = LogLevel.INFO;
+	public static boolean log = true;
+	
+	public static void disableLogger() {
+		log = false;
+	}
+	public static void enableLogger() {
+		log = true;
+	}
 	
 	private static void logMessage(LogLevel level, boolean newline, Object... objects) {
+		if(!log) return;
 		if(!level.shouldLog(current)) {
 			return;
 		}

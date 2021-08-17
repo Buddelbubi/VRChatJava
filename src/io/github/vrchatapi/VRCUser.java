@@ -51,7 +51,17 @@ public class VRCUser {
 		user.initBrief(obj);
 		return user;
 	}
-
+	public static VRCUser getByUsername(String name) {
+		JSONObject obj = ApiModel.sendGetRequest("users/" + name + "/name", null);
+		if(obj == null || !obj.has("id")) {
+			Log.WARN("Invalid user record received.");
+			return null;
+		}
+		VRCUser user = new VRCUser();
+		user.initBrief(obj);
+		return user;
+	}
+	
 	public static List<VRCUser> list(int offset, int count, boolean activeOnly, String search) {
 		String endpoint = activeOnly ? "users/active" : "users";
 		HashMap<String, Object> values = new HashMap<>();
